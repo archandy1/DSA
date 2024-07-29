@@ -1,4 +1,4 @@
-package LinkedList;
+package linkedList;
 
 public class LinkedList {
 
@@ -148,8 +148,52 @@ public class LinkedList {
         return true;
     }
 
-    public Node remove(int index){
+    public Node remove(int index) {
         if (index < 0 || index >= length) return null;
+        if (index == 0) return removeFirst();
+        if (index == length -1) return  removeLast();
+        Node prev = get(index -1);
+        Node temp = prev.next;
+
+        prev.next = temp.next;
+        temp.next = null;
+        length--;
+        return temp;
+    }
+
+    public void reverse(){
+        Node temp = head;
+        head = tail;
+        tail = temp;
+        Node after = temp.next;
+        Node before = null;
+        for (int i = 0; i < length; i++){
+            after = temp.next;
+            temp.next = before;
+            before = temp;
+            temp = after;
+        }
+    }
+
+    public Node findMiddleNode() {
+        // Initialize slow pointer to the head of the linked list
+        Node slow = head;
+
+        // Initialize fast pointer to the head of the linked list
+        Node fast = head;
+
+        // Traverse the linked list with two pointers: slow and fast
+        // slow moves one node at a time, while fast moves two nodes at a time
+        while (fast != null && fast.next != null) {
+            // Move slow pointer to the next node
+            slow = slow.next;
+
+            // Move fast pointer to the next two nodes
+            fast = fast.next.next;
+        }
+
+        // Return the Node object representing the middle node of the linked list
+        return slow;
     }
 }
 
